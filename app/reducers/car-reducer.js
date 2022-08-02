@@ -5,7 +5,7 @@ import {
   } from '../constants/action-types';
   
   const initialState = {
-    carInfo: {},
+    carInfo: [],
     isLoading: false,
     error: false,
   };
@@ -25,7 +25,7 @@ import {
         return {
           isLoading: true,
           error: false,
-          carInfo: {},
+          carInfo: [],
         };
       }
       case FETCH_DATA_ERROR: {
