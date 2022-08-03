@@ -12,7 +12,8 @@ const getErrorMessage = () => (
 
 const getCarInfo = (carInfo, searchQuery, makeFilters, yearFilters, colorFilters, yearSliderValue) => {
 
-    let carArray =  carInfo.filter(e1 => e1.car.indexOf(searchQuery) > -1 || e1.car_model.indexOf(searchQuery) > -1 || e1.car_model_year.toString().indexOf(searchQuery) > -1);
+    // Search by make, model, year, color
+    let carArray =  carInfo.filter(e1 => e1.car.indexOf(searchQuery) > -1 || e1.car_model.indexOf(searchQuery) > -1 || e1.car_model_year.toString().indexOf(searchQuery) > -1) || e1.car_color.indexOf(searchQuery) > -1;
 
     // filter by make, year, color
     if(makeFilters.length > 0) {

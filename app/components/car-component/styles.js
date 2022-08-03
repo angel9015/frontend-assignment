@@ -2,9 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
-    paddingTop: 40
+    paddingTop: 40,
   },
   loading: {
     flex: 1,
@@ -21,10 +20,20 @@ export default StyleSheet.create({
   carItem: {
     flexDirection: 'row',
     borderRadius: 5,
-    borderColor: 'black',
+    borderColor: '#d8d8d8',
     borderWidth: 1,
     marginBottom: 30,
-    padding: 20
+    padding: 20,
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    shadowOffset: {
+        width: 2,
+        height: 2
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    elevation: 3,
+    backgroundColor: 'white'
   },
   carImage: {
     width: 80,
