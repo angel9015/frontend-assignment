@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
+
 import DropdownComponent from '../dropdown-component/dropdown-component';
+import SliderComponent from '../slider-component/slider-component';
 import styles from './styles';
 
 const FilterComponent = (props) => {
     const {
-        carInfo, setMakeFilters, setYearFilters, setColorFilters
+        carInfo, setMakeFilters, setYearFilters, setColorFilters, setYSliderValue
     } = props;
     
     const makeList = [... new Set(carInfo && carInfo.map(item => item.car))]
@@ -22,6 +24,7 @@ const FilterComponent = (props) => {
             <DropdownComponent items={makeItems} title='make' setValues={setMakeFilters}/>
             <DropdownComponent items={yearItems} title='year' setValues={setYearFilters}/>
             <DropdownComponent items={colorItems} title='color' setValues={setColorFilters}/>
+            <SliderComponent items={yearList} setYSliderValue={setYSliderValue} />
         </View>
     );
 };

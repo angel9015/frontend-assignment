@@ -10,7 +10,7 @@ const getErrorMessage = () => (
   </Text>
 );
 
-const getCarInfo = (carInfo, searchQuery, makeFilters, yearFilters, colorFilters) => {
+const getCarInfo = (carInfo, searchQuery, makeFilters, yearFilters, colorFilters, yearSliderValue) => {
 
     let carArray =  carInfo.filter(e1 => e1.car.indexOf(searchQuery) > -1 || e1.car_model.indexOf(searchQuery) > -1 || e1.car_model_year.toString().indexOf(searchQuery) > -1);
 
@@ -27,6 +27,10 @@ const getCarInfo = (carInfo, searchQuery, makeFilters, yearFilters, colorFilters
         carArray = carArray.filter(e1 => yearFilters.indexOf(e1.car_color) > -1)
     }
     
+    // filter by year slider
+    if(yearSliderValue.length === 2) {
+        carArray = carArray.filter(e1 => e1.car_model_year >= yearSliderValue[0] && e1.car_model_year <= yearSliderValue[1])
+    }
 
     return (
         <FlatList
@@ -69,6 +73,7 @@ const CarComponent = (props) => {
   const [makeFilters, setMakeFilters] = React.useState([]);
   const [yearFilters, setYearFilters] = React.useState([]);
   const [colorFilters, setColorFilters] = React.useState([]);
+  const [yearSliderValue, setYSliderValue] = React.useState([]);
 
   const onChangeSearch = query => setSearchQuery(query);
 
@@ -90,8 +95,8 @@ const CarComponent = (props) => {
         <View style={styles.loading}>
             {isLoading ? <ActivityIndicator /> : null}
         </View>
-        {hasCarData ? <FilterComponent carInfo={carInfo} setMakeFilters={setMakeFilters} setYearFilters={setYearFilters} setColorFilters={setColorFilters} /> : null}
-        {hasCarData ? getCarInfo(carInfo, searchQuery, makeFilters, yearFilters, colorFilters): null}
+        {hasCarData ? <FilterComponent carInfo={carInfo} setMakeFilters={setMakeFilters} setYearFilters={setYearFilters} setColorFilters={setColorFilters} setYSliderValue={setYSliderValue} /> : null}
+        {hasCarData ? getCarInfo(carInfo, searchQuery, makeFilters, yearFilters, colorFilters, yearSliderValue): null}
     </View>
   );
 };
