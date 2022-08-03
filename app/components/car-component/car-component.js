@@ -1,17 +1,8 @@
-// @flow
-
 import React, { useEffect } from 'react';
-import {
-  View,
-  Button,
-  Text,
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  FlatList
-} from 'react-native';
-import styles from './styles';
+import { View, Text, ActivityIndicator, Image, FlatList } from 'react-native';
 import { Searchbar } from 'react-native-paper';
+import FilterComponent from '../filter-component/filter-component';
+import styles from './styles';
 
 const getErrorMessage = () => (
   <Text style={styles.errorText}>
@@ -19,9 +10,23 @@ const getErrorMessage = () => (
   </Text>
 );
 
-const getCarInfo = (carInfo, searchQuery) => {
+const getCarInfo = (carInfo, searchQuery, makeFilters, yearFilters, colorFilters) => {
 
-    const carArray =  carInfo.filter(e1 => e1.car.indexOf(searchQuery) > -1 || e1.car_model.indexOf(searchQuery) > -1 || e1.car_model_year.toString().indexOf(searchQuery) > -1);
+    let carArray =  carInfo.filter(e1 => e1.car.indexOf(searchQuery) > -1 || e1.car_model.indexOf(searchQuery) > -1 || e1.car_model_year.toString().indexOf(searchQuery) > -1);
+
+    // filter by make, year, color
+    if(makeFilters.length > 0) {
+        carArray = carArray.filter(e1 => makeFilters.indexOf(e1.car) > -1)
+    }
+
+    if(yearFilters.length > 0) {
+        carArray = carArray.filter(e1 => yearFilters.indexOf(e1.car_model_year) > -1)
+    }
+
+    if(colorFilters.length > 0) {
+        carArray = carArray.filter(e1 => yearFilters.indexOf(e1.car_color) > -1)
+    }
+    
 
     return (
         <FlatList
@@ -61,6 +66,9 @@ const CarComponent = (props) => {
     carInfo,
   } = props;
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [makeFilters, setMakeFilters] = React.useState([]);
+  const [yearFilters, setYearFilters] = React.useState([]);
+  const [colorFilters, setColorFilters] = React.useState([]);
 
   const onChangeSearch = query => setSearchQuery(query);
 
@@ -82,7 +90,8 @@ const CarComponent = (props) => {
         <View style={styles.loading}>
             {isLoading ? <ActivityIndicator /> : null}
         </View>
-        {hasCarData ? getCarInfo(carInfo, searchQuery): null}
+        {hasCarData ? <FilterComponent carInfo={carInfo} setMakeFilters={setMakeFilters} setYearFilters={setYearFilters} setColorFilters={setColorFilters} /> : null}
+        {hasCarData ? getCarInfo(carInfo, searchQuery, makeFilters, yearFilters, colorFilters): null}
     </View>
   );
 };
