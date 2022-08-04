@@ -4,6 +4,7 @@ export default StyleSheet.create({
   container: {
     padding: 20,
     paddingTop: 40,
+    flex: 1
   },
   loading: {
     flex: 1,
@@ -87,6 +88,8 @@ export default StyleSheet.create({
     fontSize: 20
   },
   carList: {
+    flexGrow: 100,
+    flex: 1,
     padding: 10,
     borderRadius: 20,
     borderWidth: 1,
