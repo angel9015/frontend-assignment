@@ -166,7 +166,7 @@ const CarComponent = (props) => {
                                 />
                                 <View style={styles.carDetails}>
                                     <Text style={styles.carDetailTxt}>{item.car}</Text>
-                                    <Text style={styles.carDetailTxt}>{item.price}</Text>
+                                    <Text style={styles.carDetailTxt}>{item.price}/day</Text>
                                     <View style={styles.status}>
                                         {item.availability === true ? (
                                             <View style={styles.availableStatus}></View>
